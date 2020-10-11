@@ -7,6 +7,8 @@ public class Response {
     private OutputStream outputStream;
     private Request request;
 
+    private String success="HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8";
+
     public Response(OutputStream outputStream) {
         this.outputStream = outputStream;
     }
@@ -15,12 +17,17 @@ public class Response {
         this.request = request;
     }
 
-    public void sendStaticResource() {
+    public void sendStaticResource() throws Exception {
         byte[] bytes = new byte[BUFFER_SIZE];
         FileInputStream fileInputStream = null;
         File file = new File(HttpServer.WEB_ROOT, request.getUri());
+        if(file==null){
+            System.out.println("请求地址无效");
+           throw new Exception();
+        }
         try {
             if (file.exists()) {
+                outputStream.write(success.getBytes());
                 fileInputStream = new FileInputStream(file);
                 int ch = fileInputStream.read(bytes, 0, BUFFER_SIZE);
                 while (ch != -1) {

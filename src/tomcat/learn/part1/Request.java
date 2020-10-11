@@ -9,6 +9,8 @@ public class Request {
 
     private String uri;
 
+    private String version;
+
     public Request(InputStream inputStream) {
         this.inputStream = inputStream;
     }

@@ -24,7 +24,7 @@ public class HttpServer {
 
     public void await(){
         ServerSocket serverSocket=null;
-        int port=8080;
+        int port=8081;
         try {
             serverSocket=new ServerSocket(port,1, InetAddress.getByName("127.0.0.1"));
         } catch (IOException e) {
@@ -51,7 +51,7 @@ public class HttpServer {
 
                 //判断是否shutdown
                 shutdown=SHUTUDOWN_COMMAND.equals(request.getUri());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 continue;
             }
